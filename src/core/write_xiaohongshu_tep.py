@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # 小红书的自动发稿
 from playwright.async_api import async_playwright
 import time
@@ -10,7 +11,7 @@ from PyQt5.QtWidgets import QInputDialog, QLineEdit
 from PyQt5.QtCore import QObject, pyqtSignal, QMetaObject, Qt, QThread, pyqtSlot
 from PyQt5.QtWidgets import QApplication
 log_path = os.path.expanduser('~/Desktop/xhsai_error.log')
-logging.basicConfig(filename=log_path, level=logging.DEBUG)
+logging.basicConfig(filename=log_path, level=logging.DEBUG, encoding='utf-8')
 
 class VerificationCodeHandler(QObject):
     code_received = pyqtSignal(str)
@@ -226,7 +227,7 @@ class XiaohongshuPoster:
         """从文件加载token"""
         if os.path.exists(self.token_file):
             try:
-                with open(self.token_file, 'r') as f:
+                with open(self.token_file, 'r', encoding='utf-8') as f:
                     token_data = json.load(f)
                     # 检查token是否过期
                     if token_data.get('expire_time', 0) > time.time():
@@ -242,14 +243,14 @@ class XiaohongshuPoster:
             # token有效期设为30天
             'expire_time': time.time() + 30 * 24 * 3600
         }
-        with open(self.token_file, 'w') as f:
-            json.dump(token_data, f)
+        with open(self.token_file, 'w', encoding='utf-8') as f:
+            json.dump(token_data, f, ensure_ascii=False, indent=2)
 
     async def _load_cookies(self):
         """从文件加载cookies"""
         if os.path.exists(self.cookies_file):
             try:
-                with open(self.cookies_file, 'r') as f:
+                with open(self.cookies_file, 'r', encoding='utf-8') as f:
                     cookies = json.load(f)
                     # 确保cookies包含必要的字段
                     for cookie in cookies:
@@ -265,8 +266,8 @@ class XiaohongshuPoster:
         """保存cookies到文件"""
         try:
             cookies = await self.context.cookies()
-            with open(self.cookies_file, 'w') as f:
-                json.dump(cookies, f)
+            with open(self.cookies_file, 'w', encoding='utf-8') as f:
+                json.dump(cookies, f, ensure_ascii=False, indent=2)
         except Exception as e:
             logging.debug(f"保存cookies失败: {str(e)}")
 
