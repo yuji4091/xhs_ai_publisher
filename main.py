@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import logging
 import os
 import signal
@@ -18,7 +17,7 @@ from src.logger.logger import Logger
 
 # 设置日志文件路径
 log_path = os.path.expanduser('~/Desktop/xhsai_error.log')
-logging.basicConfig(filename=log_path, level=logging.DEBUG, encoding='utf-8')
+logging.basicConfig(filename=log_path, level=logging.DEBUG)
 
 def init_database_on_startup():
     """应用启动时初始化数据库"""
