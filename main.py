@@ -14,6 +14,7 @@ from src.core.pages.home import HomePage
 from src.core.pages.setting import SettingsPage
 from src.core.pages.tools import ToolsPage
 from src.core.pages.user_management import UserManagementPage
+from src.core.pages.overtime_publish import OvertimePublishPage
 from src.logger.logger import Logger
 
 # 设置日志文件路径
@@ -188,18 +189,24 @@ class XiaohongshuUI(QMainWindow):
         tools_btn.setCheckable(True)
         tools_btn.clicked.connect(lambda: self.switch_page(2))
 
+        # 添加加班发布按钮
+        overtime_btn = QPushButton("🌙")
+        overtime_btn.setCheckable(True)
+        overtime_btn.clicked.connect(lambda: self.switch_page(3))
+
         settings_btn = QPushButton("⚙️")
         settings_btn.setCheckable(True)
-        settings_btn.clicked.connect(lambda: self.switch_page(3))
+        settings_btn.clicked.connect(lambda: self.switch_page(4))
 
         sidebar_layout.addWidget(home_btn)
         sidebar_layout.addWidget(user_btn)
         sidebar_layout.addWidget(tools_btn)
+        sidebar_layout.addWidget(overtime_btn)
         sidebar_layout.addWidget(settings_btn)
         sidebar_layout.addStretch()
 
         # 存储按钮引用以便切换状态
-        self.sidebar_buttons = [home_btn, user_btn, tools_btn, settings_btn]
+        self.sidebar_buttons = [home_btn, user_btn, tools_btn, overtime_btn, settings_btn]
 
         # 添加侧边栏到主布局
         main_layout.addWidget(sidebar)
@@ -212,12 +219,14 @@ class XiaohongshuUI(QMainWindow):
         self.home_page = HomePage(self)
         self.user_management_page = UserManagementPage(self)
         self.tools_page = ToolsPage(self)
+        self.overtime_publish_page = OvertimePublishPage()
         self.settings_page = SettingsPage(self)
 
         # 将页面添加到堆叠窗口
         self.stack.addWidget(self.home_page)
         self.stack.addWidget(self.user_management_page)
         self.stack.addWidget(self.tools_page)
+        self.stack.addWidget(self.overtime_publish_page)
         self.stack.addWidget(self.settings_page)
 
         # 连接用户管理页面的信号

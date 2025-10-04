@@ -4,7 +4,9 @@
 """
 
 from .user_management import UserManagementPage
+from .overtime_publish import OvertimePublishPage
 
 __all__ = [
-    'UserManagementPage'
+    'UserManagementPage',
+    'OvertimePublishPage'
 ] 
